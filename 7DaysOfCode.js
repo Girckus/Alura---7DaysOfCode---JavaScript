@@ -5,6 +5,10 @@ let stringTrinta = '30'
 let numeroDez = 10
 let stringDez = 10
 
+document.querySelector("#adivinhacao").addEventListener("click", function () {
+    iniciarAdivinhacao();
+});
+ 
 if (numeroUm == stringUm) {
     if(numeroUm === stringUm) {
         console.log('As variáveis numeroUm e stringUm tem o mesmo e mesmo tipo')
@@ -101,6 +105,38 @@ if(respostaValida) {
 		minhaEspecialidade = "se desenvolver para Fullstack";
 	}
 	
-	const resposta = `Você gostaria de seguir para a área ${area} e aprender ${aprender} ${minhasTech}, além disso gostaria de ${minhaEspecialidade}`
+	const resposta = `Você gostaria de seguir para a área ${area} e aprender ${aprender} ${minhasTech}, além disso gostaria de ${minhaEspecialidade}`;
 	document.querySelector("#respostaJogo").textContent = resposta;
+}
+
+function iniciarAdivinhacao() {
+	const maximo = 10;
+	const minimo = 0;
+	const numeroRandom = Math.floor(Math.random() * (maximo - minimo + 1) + minimo);
+	
+	let numeroChances = 3;
+	let chances = `${numeroChances} chances`;
+	let numeroAdivinhacao = prompt(`Digite um numero de 0 a 10 para adivinhar o numero mágico. Você tem ${chances}`);
+	
+	while(numeroChances > 0) {
+		if(numeroAdivinhacao == numeroRandom) {
+			alert(`Parabéns você acertou o número mágico ${numeroRandom}`);
+			return;
+		} else {
+			numeroChances--;
+			
+			if(numeroChances == 0) {
+				alert(`Acabou as chances, o número mágico era ${numeroRandom}`);
+				return;
+			}
+			
+			if(numeroChances == 1) {
+				chances = `${numeroChances} chance`;
+			} else {
+				chances = `${numeroChances} chances`;
+			}
+			
+			numeroAdivinhacao = prompt(`Digite um numero de 0 a 10 para adivinhar o numero mágico. Você tem ${chances}`);
+		}
+	}
 }
