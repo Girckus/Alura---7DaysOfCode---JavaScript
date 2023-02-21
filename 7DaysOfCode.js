@@ -5,8 +5,16 @@ let stringTrinta = '30'
 let numeroDez = 10
 let stringDez = 10
 
+document.querySelector("#jogo").addEventListener("click", function () {
+    iniciarJogo();
+});
+
 document.querySelector("#adivinhacao").addEventListener("click", function () {
     iniciarAdivinhacao();
+});
+
+document.querySelector("#mercado").addEventListener("click", function () {
+    iniciarMercado();
 });
  
 if (numeroUm == stringUm) {
@@ -57,56 +65,58 @@ if(gosta == 2) {
     alert("Ahh que pena... Já tentou aprender outras linguagens?");
 }
 
-const area = prompt("Você quer seguir para a área de Back-End ou Front-End?").toLowerCase();
-let aprender = "";
-let respostaValida = true;
+function iniciarJogo() {
+	const area = prompt("Você quer seguir para a área de Back-End ou Front-End?").toLowerCase();
+	let aprender = "";
+	let respostaValida = true;
 
-if(area == "front-end") {
-	aprender = prompt("Você quer aprender React ou Vue?").toLowerCase();
-	while(aprender != "react" && aprender != "vue") {
+	if(area == "front-end") {
 		aprender = prompt("Você quer aprender React ou Vue?").toLowerCase();
-	}
-} else if(area == "back-end") {
-	aprender = prompt("Você quer aprender C# ou Java?").toLowerCase();
-	while(aprender != "java" && aprender != "c#") {
+		while(aprender != "react" && aprender != "vue") {
+			aprender = prompt("Você quer aprender React ou Vue?").toLowerCase();
+		}
+	} else if(area == "back-end") {
 		aprender = prompt("Você quer aprender C# ou Java?").toLowerCase();
+		while(aprender != "java" && aprender != "c#") {
+			aprender = prompt("Você quer aprender C# ou Java?").toLowerCase();
+		}
+	} else {
+		respostaValida = false;
+		alert("OK nenhum dos dois, Tchau!");
 	}
-} else {
-	respostaValida = false;
-	alert("OK nenhum dos dois, Tchau!");
-}
 
-if(respostaValida) {
-	let especialidade = prompt("Digite 1 para seguir se especializando na área escolhida ou 2 para seguir se desenvolvendo para se tornar Fullstack");
-	
-	while(especialidade != 1 && especialidade != 2) {
-		especialidade = prompt("Digite 1 para seguir se especializando na área escolhida ou 2 para seguir se desenvolvendo para se tornar Fullstack");
-	}
-	
-	let tech = [];
-	let maisTech = prompt("Tem mais alguma tecnologia que você gostaria de se especializar ou conhecer? Caso tenha digital o nome, caso contrário digita 'sair'.");
+	if(respostaValida) {
+		let especialidade = prompt("Digite 1 para seguir se especializando na área escolhida ou 2 para seguir se desenvolvendo para se tornar Fullstack");
+		
+		while(especialidade != 1 && especialidade != 2) {
+			especialidade = prompt("Digite 1 para seguir se especializando na área escolhida ou 2 para seguir se desenvolvendo para se tornar Fullstack");
+		}
+		
+		let tech = [];
+		let maisTech = prompt("Tem mais alguma tecnologia que você gostaria de se especializar ou conhecer? Caso tenha digital o nome, caso contrário digita 'sair'.");
 
-	while(maisTech != 'sair') {
-		tech.push(maisTech);
-		maisTech = prompt("Tem mais alguma tecnologia que você gostaria de se especializar ou conhecer? Caso tenha digital o nome, caso contrário digita 'sair'.");
+		while(maisTech != 'sair') {
+			tech.push(maisTech);
+			maisTech = prompt("Tem mais alguma tecnologia que você gostaria de se especializar ou conhecer? Caso tenha digital o nome, caso contrário digita 'sair'.");
+		}
+		
+		let minhasTech = ""
+		if(tech.length != 0) {
+			minhasTech = " e também ";
+			minhasTech += tech.join(", ");
+		}
+		
+		let minhaEspecialidade = "";
+		if(especialidade == 1) {
+			minhaEspecialidade = `seguir se especilizando em ${aprender}`;
+		}
+		if(especialidade == 2) {
+			minhaEspecialidade = "se desenvolver para Fullstack";
+		}
+		
+		const resposta = `Você gostaria de seguir para a área ${area} e aprender ${aprender} ${minhasTech}, além disso gostaria de ${minhaEspecialidade}`;
+		document.querySelector("#respostaJogo").textContent = resposta;
 	}
-	
-	let minhasTech = ""
-	if(tech.length != 0) {
-		minhasTech = " e também ";
-		minhasTech += tech.join(", ");
-	}
-	
-	let minhaEspecialidade = "";
-	if(especialidade == 1) {
-		minhaEspecialidade = `seguir se especilizando em ${aprender}`;
-	}
-	if(especialidade == 2) {
-		minhaEspecialidade = "se desenvolver para Fullstack";
-	}
-	
-	const resposta = `Você gostaria de seguir para a área ${area} e aprender ${aprender} ${minhasTech}, além disso gostaria de ${minhaEspecialidade}`;
-	document.querySelector("#respostaJogo").textContent = resposta;
 }
 
 function iniciarAdivinhacao() {
@@ -139,4 +149,33 @@ function iniciarAdivinhacao() {
 			numeroAdivinhacao = prompt(`Digite um numero de 0 a 10 para adivinhar o numero mágico. Você tem ${chances}`);
 		}
 	}
+}
+
+function iniciarMercado() {
+	let frutas = [];
+	let laticinios = [];
+	let congelados = [];
+	let doces = [];
+	
+	let adicionaProduto = prompt(`você deseja adicionar um produto na sua lista de compras (sim ou não)?`);
+	
+	while(adicionaProduto.toLowerCase()	== 'sim') {
+		let produto = prompt(`Qual produto você deseja inserir?`);
+		let categoria = prompt(`Qual categoria esse produto se encaixa? frutas, laticínios, congelados ou doces`);
+		
+		switch(categoria.toLowerCase()) {
+			case "frutas": frutas.push(produto); break;
+			case "laticínios": laticinios.push(produto); break;
+			case "congelados": congelados.push(produto); break;
+			case "doces": doces.push(produto); break;
+			default: alert("Categoria inválida");
+		}
+			
+		adicionaProduto = prompt(`você deseja adicionar um produto na sua lista de compras (sim ou não)?`);
+	}
+	
+	document.querySelector("#frutas").textContent = "Frutas: " + frutas.join(", ");
+	document.querySelector("#laticinios").textContent = "Laticínios: " + laticinios.join(", ");
+	document.querySelector("#congelados").textContent = "Congelados: " + congelados.join(", ");
+	document.querySelector("#doces").textContent = "Doces: " + doces.join(", ");
 }
