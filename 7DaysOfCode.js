@@ -1,68 +1,84 @@
-let numeroUm = 1
-let stringUm = '1'
-let numeroTrinta = 30
-let stringTrinta = '30'
-let numeroDez = 10
-let stringDez = 10
-
-document.querySelector("#jogo").addEventListener("click", function () {
-    iniciarJogo();
+document.addEventListener("DOMContentLoaded", function(e) {
+    testeComparadores();
+	obtemDadosUsuario();
+	adicionaEventosBotoes();
 });
 
-document.querySelector("#adivinhacao").addEventListener("click", function () {
-    iniciarAdivinhacao();
-});
+function adicionaEventosBotoes() {
+	document.querySelector("#jogo").addEventListener("click", function () {
+		iniciarJogo();
+	});
 
-document.querySelector("#mercado").addEventListener("click", function () {
-    iniciarMercado();
-});
- 
-if (numeroUm == stringUm) {
-    if(numeroUm === stringUm) {
-        console.log('As variáveis numeroUm e stringUm tem o mesmo e mesmo tipo')
-    } else {
-        console.log('As variáveis numeroUm e stringUm tem o mesmo valor, mas tipos diferentes')
-    }
-} else {
-    console.log('As variáveis numeroUm e stringUm não tem o mesmo valor')
-}
-  
-if (numeroTrinta === stringTrinta) {
-    console.log('As variáveis numeroTrinta e stringTrinta tem o mesmo valor e mesmo tipo')
-} else {
-    console.log('As variáveis numeroTrinta e stringTrinta não tem o mesmo tipo')
-}
-  
-if (numeroDez == stringDez) {
-    if(numeroDez !== stringDez) {
-        console.log('As variáveis numeroDez e stringDez tem o mesmo valor, mas tipos diferentes')
-    } else {
-        console.log('As variáveis numeroDez e stringDez tem o mesmo valor e mesmo tipo')
-    }
-} else {
-    console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')
+	document.querySelector("#adivinhacao").addEventListener("click", function () {
+		iniciarAdivinhacao();
+	});
+
+	document.querySelector("#mercado").addEventListener("click", function () {
+		iniciarMercado();
+	});
+
+	document.querySelector("#calculadora").addEventListener("click", function () {
+		iniciarCalculadora();
+	});
 }
 
-const nome = prompt("Qual o seu nome?");
-const idade = prompt("Quantos anos você tem?");
-const linguagem = prompt("Qual linguagem de programação você está estudando?");
-
-document.querySelector("#nome").textContent = nome;
-document.querySelector("#idade").textContent = idade;
-document.querySelector("#linguagem").textContent = linguagem;
-
-let gosta = prompt(`Você gosta de estudar ${linguagem}? Responda com o número 1 para SIM ou 2 para NÃO.`);
-
-while(gosta != 1 && gosta != 2) {
-    gosta = prompt(`Você gosta de estudar ${linguagem}? Responda com o número 1 para SIM ou 2 para NÃO.`);
+function testeComparadores() {
+	let numeroUm = 1
+	let stringUm = '1'
+	let numeroTrinta = 30
+	let stringTrinta = '30'
+	let numeroDez = 10
+	let stringDez = 10
+	
+	if (numeroUm == stringUm) {
+		if(numeroUm === stringUm) {
+			console.log('As variáveis numeroUm e stringUm tem o mesmo e mesmo tipo')
+		} else {
+			console.log('As variáveis numeroUm e stringUm tem o mesmo valor, mas tipos diferentes')
+		}
+	} else {
+		console.log('As variáveis numeroUm e stringUm não tem o mesmo valor')
+	}
+	  
+	if (numeroTrinta === stringTrinta) {
+		console.log('As variáveis numeroTrinta e stringTrinta tem o mesmo valor e mesmo tipo')
+	} else {
+		console.log('As variáveis numeroTrinta e stringTrinta não tem o mesmo tipo')
+	}
+	  
+	if (numeroDez == stringDez) {
+		if(numeroDez !== stringDez) {
+			console.log('As variáveis numeroDez e stringDez tem o mesmo valor, mas tipos diferentes')
+		} else {
+			console.log('As variáveis numeroDez e stringDez tem o mesmo valor e mesmo tipo')
+		}
+	} else {
+		console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')
+	}
 }
 
-if(gosta == 1) {
-    alert(`Muito bom! Continue estudando ${linguagem} e você terá muito sucesso.`);
-}
+function obtemDadosUsuario() {
+	const nome = prompt("Qual o seu nome?");
+	const idade = prompt("Quantos anos você tem?");
+	const linguagem = prompt("Qual linguagem de programação você está estudando?");
 
-if(gosta == 2) {
-    alert("Ahh que pena... Já tentou aprender outras linguagens?");
+	document.querySelector("#nome").textContent = nome;
+	document.querySelector("#idade").textContent = idade;
+	document.querySelector("#linguagem").textContent = linguagem;
+
+	let gosta = prompt(`Você gosta de estudar ${linguagem}? Responda com o número 1 para SIM ou 2 para NÃO.`);
+
+	while(gosta != 1 && gosta != 2) {
+		gosta = prompt(`Você gosta de estudar ${linguagem}? Responda com o número 1 para SIM ou 2 para NÃO.`);
+	}
+
+	if(gosta == 1) {
+		alert(`Muito bom! Continue estudando ${linguagem} e você terá muito sucesso.`);
+	}
+
+	if(gosta == 2) {
+		alert("Ahh que pena... Já tentou aprender outras linguagens?");
+	}
 }
 
 function iniciarJogo() {
@@ -210,4 +226,35 @@ function exibeMensagemRemover(nome, carrinho) {
 			}
 		}
 	}
+}
+
+function iniciarCalculadora() {
+	let operacao = prompt(`Qual operação gosgtaria de executar: soma, subtração, multiplicação, divisão? Digite 'sair' para fechar`);
+	
+		while(operacao != 'sair') {
+			let numerostr1 = prompt(`Digite o primeiro numero: `);
+			let numerostr2 = prompt(`Digite o segundo numero: `);
+			
+			if(isNaN(numerostr1)) {
+				alert(`Erro: ${numerostr1} não é número`);
+			} else if(isNaN(numerostr2)) {
+				alert(`Erro: ${numerostr2} não é número`);
+			} else if(operacao == "divisão" && numerostr2 == 0) {
+				alert(`Erro: Divisão por 0`);
+			} else {
+				let numero1 = new Number(numerostr1);
+				let numero2 = new Number(numerostr2);
+				
+				switch(operacao.toLowerCase()) {
+					case "soma": alert(numero1 + numero2); break;
+					case "subtração": alert(numero1 - numero2); break;
+					case "multiplicação": alert(numero1 * numero2); break;
+					case "divisão": alert(numero1 / numero2); break;
+					case "sair": alert("Até a próxima"); break;
+					default: alert("Operação inválida");
+				}
+			}
+			
+			operacao = prompt(`Qual operação gosgtaria de executar: soma, subtração, multiplicação, divisão? Digite 'sair' para fechar`);
+		}		
 }
