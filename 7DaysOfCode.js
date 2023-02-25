@@ -164,18 +164,50 @@ function iniciarMercado() {
 		let categoria = prompt(`Qual categoria esse produto se encaixa? frutas, laticínios, congelados ou doces`);
 		
 		switch(categoria.toLowerCase()) {
-			case "frutas": frutas.push(produto); break;
-			case "laticínios": laticinios.push(produto); break;
-			case "congelados": congelados.push(produto); break;
-			case "doces": doces.push(produto); break;
+			case "frutas": frutas.push(produto); 
+			               exibeMensagemRemover("frutas", frutas);
+						   break;
+			case "laticínios": laticinios.push(produto); 
+			                   exibeMensagemRemover("laticínios", laticinios);
+						       break;
+			case "congelados": congelados.push(produto); 
+			                   exibeMensagemRemover("congelados", congelados);
+						       break;
+			case "doces": doces.push(produto); 
+			              exibeMensagemRemover("doces", doces);
+						  break;
 			default: alert("Categoria inválida");
 		}
-			
-		adicionaProduto = prompt(`você deseja adicionar um produto na sua lista de compras (sim ou não)?`);
+		
+		adicionaProduto = prompt(`Você deseja adicionar um produto na sua lista de compras (sim ou não)?`);
 	}
 	
 	document.querySelector("#frutas").textContent = "Frutas: " + frutas.join(", ");
 	document.querySelector("#laticinios").textContent = "Laticínios: " + laticinios.join(", ");
 	document.querySelector("#congelados").textContent = "Congelados: " + congelados.join(", ");
 	document.querySelector("#doces").textContent = "Doces: " + doces.join(", ");
+}
+
+function exibeMensagemRemover(nome, carrinho) {
+	if(carrinho.length > 0) {
+		let removeProduto = prompt(`Seu carrinho de ${nome} contem: ${carrinho.join(", ")}. Você deseja remover um produto na sua lista de ${nome} (sim ou não)?`);
+	
+		while(removeProduto.toLowerCase() == 'sim') {
+			let produto = prompt(`Seu carrinho de ${nome} contem: ${carrinho.join(", ")}. Qual produto você deseja remover?`);
+			
+			var pos = carrinho.indexOf(produto);
+			
+			if(pos >= 0) {
+				carrinho.splice(pos, 1);
+			} else {
+				alert("Produto não encontrado");
+			}
+			
+			if(carrinho.length > 0) {
+				removeProduto = prompt(`Seu carrinho de ${nome} contem: ${carrinho.join(", ")}. Você deseja remover um produto na sua lista de ${nome} (sim ou não)?`);
+			} else {
+				removeProduto = "";
+			}
+		}
+	}
 }
